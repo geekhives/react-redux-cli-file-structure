@@ -1,0 +1,7 @@
+import React, { Component } from 'react';
+import Route from 'react-router/lib/Route';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import {{containerOrig}} from './containers/{{containerOrig}}';
+
+export const {{containerLowerCase}}Routes = () => 
+	<Route path="{{containerLowerCase}}" component={ {{containerOrig}} } />

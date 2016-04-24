@@ -1,0 +1,10 @@
+import * as c from './constants';
+
+const initState = {}
+
+export const {{moduleNameLowerCase}} = (state = initState, action) => {
+	return state;
+}
+
+
+
