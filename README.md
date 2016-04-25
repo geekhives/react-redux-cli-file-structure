@@ -33,6 +33,53 @@ directory_destination
 			->ModueNameShouldStudly.js
 		-reducers
 			->index.js
-		-routes
-			->routes.js
+		->routes.js
+		->constants.js
+
+```
+
+ModueNameShouldStudly.js:
+```
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions';
+
+class ModueNameShouldStudly extends Component {
+
+    state = {}
+
+    render(){
+
+                return (
+                        <div></div>
+                )
+        }
+}
+
+export default connect(
+        state => {
+                const moduenameshouldstudly = state.moduenameshouldstudly
+
+                return {
+            moduenameshouldstudly
+                }
+        },
+        dispatch => {
+                return {
+                        action: bindActionCreators(actions,  dispatch)
+                }
+        }
+)(ModueNameShouldStudly)
+```
+
+reducers.js
+```
+import * as c from './constants';
+
+const initState = {}
+
+export const moduenameshouldstudly = (state = initState, action) => {
+        return state;
+}
 ```
