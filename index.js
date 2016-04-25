@@ -3,6 +3,9 @@ var program = require('commander');
 var fs = require('fs')
 var Promise = require('promise')
 var Mustache = require('mustache')
+var path = require('path');
+
+var BASE_PATH = __dirname
 
 program
   .arguments('<modulename>')
@@ -67,7 +70,7 @@ program
       			containerOrig: moduleName.replace('.','').replace('/',''),
       		}
 
-      		var routesTemplate = fs.readFileSync('./templates/routes.template').toString()
+      		var routesTemplate = fs.readFileSync(BASE_PATH+'/templates/routes.template').toString()
         			
       		var output = Mustache.render(routesTemplate, routesData);							
 
@@ -115,7 +118,7 @@ program
             
             var p1 = new Promise(function(resolve, reject){
 
-                var containerTemplate = fs.readFileSync('./templates/container.template').toString()
+                var containerTemplate = fs.readFileSync(BASE_PATH+'/templates/container.template').toString()
                     
                 var output = Mustache.render(containerTemplate, containerData);             
 
@@ -137,7 +140,7 @@ program
             
             var p2 = new Promise(function(resolve, reject){
 
-                var containerTemplate = fs.readFileSync('./templates/reducer.template').toString()
+                var containerTemplate = fs.readFileSync(BASE_PATH+'/templates/reducer.template').toString()
                     
                 var output = Mustache.render(containerTemplate, containerData);             
 
