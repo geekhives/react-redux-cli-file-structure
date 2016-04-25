@@ -2,9 +2,13 @@
 
 ## How to start
 
-Installtion:  
+Installation:  
 ```
 npm install -g react-redux-cli-file-structure
+
+if permission denied 
+
+sudo npm install -g react-redux-cli-file-structure
 ```
 
 Usage:  
@@ -27,8 +31,8 @@ directory_destination
 		-components
 		-containers
 			->ModueNameShouldStudly.js
-		->reducers
+		-reducers
 			->index.js
-		->routes
+		-routes
 			->routes.js
 ```
