@@ -10,12 +10,11 @@ program
   
   .action(function(moduleName) {
 
- 
   	var promise = new Promise(function(resolve, reject){
   		if (fs.existsSync(program.dirdest)) {
   			resolve(program.dirdest)
   		}
-  		reject('Desctination does not exist')
+  		reject('Destination does not exist')
   	})
   	.then(function(destination){
 
