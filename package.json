@@ -1,16 +1,24 @@
 {
   "name": "react-redux-cli-file-structure",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "cli creation for react redux boiler plate",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/geekhives/react-redux-cli-file-structure"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geekhives/react-redux-cli-file-structure"
   },
-  "tags" : ["react","redux","boiler plate", "cli"],
-  "files": ["index.js","templates"],
+  "tags": [
+    "react",
+    "redux",
+    "boiler plate",
+    "cli"
+  ],
+  "files": [
+    "index.js",
+    "templates"
+  ],
   "author": "vincent de torres",
   "license": "ISC",
   "bin": {
