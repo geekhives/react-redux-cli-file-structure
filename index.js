@@ -4,6 +4,8 @@ var fs = require('fs')
 var Promise = require('promise')
 var Mustache = require('mustache')
 var path = require('path');
+var _str = require('lodash/string');
+
 
 var BASE_PATH = __dirname
 
@@ -21,7 +23,7 @@ program
   	})
   	.then(function(destination){
 
-  		var mod = destination+moduleName.toLowerCase();
+  		var mod = destination+_str.kebabCase(moduleName);
 
   		fs.mkdirSync(mod)
 
@@ -32,8 +34,6 @@ program
   	})
   	.then(function(module){
   		
-  		var lowerCaseModule = module.toLowerCase()
-
   		var p1 = new Promise(function(resolve, reject){
   			if(fs.existsSync(module)){
   				fs.mkdir(module+'/actions')
@@ -62,57 +62,31 @@ program
   			}
   		});
 
-
-  		var p5 = new Promise(function(resolve, reject){
-
-      		var routesData = {
-      			containerLowerCase: moduleName.replace('.','').replace('/','').toLowerCase(),
-      			containerOrig: moduleName.replace('.','').replace('/',''),
-      		}
-
-      		var routesTemplate = fs.readFileSync(BASE_PATH+'/templates/routes.template').toString()
-        			
-      		var output = Mustache.render(routesTemplate, routesData);							
-
-      		fs.writeFileSync(module+'/routes.js', output);
-
-          if(fs.existsSync(module+'/routes.js')){
-            resolve(module+'/routes.js')
-          }
-          else{
-            reject('routes didnt created')
-          }
-
-  		});
-
-
-      var p6 = new Promise(function(resolve, reject){
-
-          fs.writeFileSync(module+'/constants.js', '');
-
-          if(fs.existsSync(module+'/constants.js')){
-            resolve(module+'/constants.js')
-          }
-          else{
-            reject('constants didnt created')
-          }
-
+      var p5 = new Promise(function(resolve, reject){
+        if(fs.existsSync(module)){
+          fs.mkdir(module+'/constants')
+          resolve(module+'/constants')
+        }
       });
 
-  		return Promise.all([p1, p2, p3, p4, p5, p6]).then(function(values) { 
+  		return Promise.all([p1, p2, p3, p4, p5]).then(function(values) { 
 		    return values
 		  });
 
   	})
   	.then(function(folders){
         
-        var mod = moduleName.toLowerCase()
+        var mod = _str.kebabCase(moduleName)
        
         var containerData = {
-          moduleNameLowerCase: moduleName.replace('.','').replace('/','').toLowerCase(),
-          moduleNameOrig: moduleName.replace('.','').replace('/',''),
+          moduleNameCamelCase: _str.camelCase(moduleName),
+          moduleNameLowerCase: moduleName.toLowerCase(),
+          moduleNameOrig: moduleName,
+          moduleNameUpperCase: moduleName.toUpperCase(),
+          moduleNameKebabCase: mod,
+          moduleStartCase: _str.startCase(moduleName)
         }
-
+        console.log(program.dirdest+mod+'/containers');
 
         if(folders.indexOf(program.dirdest+mod+'/containers') > -1){
             
@@ -163,7 +137,7 @@ program
             var p3 = new Promise(function(resolve, reject){
 
                     
-                fs.writeFileSync(program.dirdest+mod+'/actions/index.js', "import * as c from './constants';");
+                fs.writeFileSync(program.dirdest+mod+'/actions/index.js', "import * as c from '../constants';");
 
                 if(fs.existsSync(program.dirdest+mod+'/actions/index.js')){
                   resolve(program.dirdest+mod+'/actions/index.js')
@@ -175,6 +149,40 @@ program
             });
 
         }
+
+         if(folders.indexOf(program.dirdest+mod+'/constants') > -1){
+
+           var p4 = new Promise(function(resolve, reject){
+
+                    
+                fs.writeFileSync(program.dirdest+mod+'/constants/index.js', "");
+
+                if(fs.existsSync(program.dirdest+mod+'/constants/index.js')){
+                  resolve(program.dirdest+mod+'/constants/index.js')
+                }
+                else{
+                  reject('constants didnt created')
+                }
+
+            });
+         }
+
+        var p5 = new Promise(function(resolve, reject){
+
+            var routesTemplate = fs.readFileSync(BASE_PATH+'/templates/routes.template').toString()
+                
+            var output = Mustache.render(routesTemplate, containerData);             
+
+            fs.writeFileSync(program.dirdest+mod+'/routes.js', output);
+
+            if(fs.existsSync(program.dirdest+mod+'/routes.js')){
+              resolve(program.dirdest+mod+'/routes.js')
+            }
+            else{
+              reject('routes didnt created')
+            }
+
+        });
 
   	})
     .then(function(){

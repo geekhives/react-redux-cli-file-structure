@@ -17,10 +17,10 @@ class {{moduleNameOrig}} extends Component {
 
 export default connect(
 	state => {
-		const {{moduleNameLowerCase}} = state.{{moduleNameLowerCase}}
+		const {{moduleNameCamelCase}} = state.{{moduleNameCamelCase}}
         
 		return {
-            {{moduleNameLowerCase}}
+            {{moduleNameCamelCase}}
 		}
 	},
 	dispatch => {

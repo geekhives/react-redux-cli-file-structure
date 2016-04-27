@@ -13,7 +13,9 @@
     "react",
     "redux",
     "boiler plate",
-    "cli"
+    "cli",
+    "path",
+    "fs"
   ],
   "files": [
     "index.js",
@@ -26,6 +28,7 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
+    "lodash": "^4.11.1",
     "mustache": "^2.2.1",
     "promise": "^7.1.1"
   }

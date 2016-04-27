@@ -1,8 +1,8 @@
-import * as c from './constants';
+import * as c from '../constants';
 
 const initState = {}
 
-export const {{moduleNameLowerCase}} = (state = initState, action) => {
+export const {{moduleNameCamelCase}} = (state = initState, action) => {
 	return state;
 }
 
