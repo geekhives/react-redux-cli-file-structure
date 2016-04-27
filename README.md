@@ -15,11 +15,11 @@ Usage:
 ```
 On you command line type without $
 
-$v -d ~/directory_destination/ ModueNameShouldStudly
+$v -d ~/directory_destination ModueNameShouldStudly
 
 OR 
 
-$v --dirdest ~/directory_destination/ ModueNameShouldStudly
+$v --dirdest ~/directory_destination ModueNameShouldStudly
 ```
 
 Result:
