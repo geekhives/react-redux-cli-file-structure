@@ -1,8 +1,12 @@
 import * as c from '../constants';
 
-const initState = {}
-
-export const {{moduleNameCamelCase}} = (state = initState, action) => {
+export const {{moduleNameCamelCase}} = (state = c.INIT_STATE, action) => {
+	switch(action.type) {
+        case c.{{moduleNameUpperCase}}_LOADING:
+            return Object.assign({}, state, {
+                isLoading: action.isLoading
+            })
+    }
 	return state;
 }
 

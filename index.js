@@ -86,7 +86,7 @@ program
           moduleNameKebabCase: mod,
           moduleStartCase: _str.startCase(moduleName)
         }
-        console.log(program.dirdest+mod+'/containers');
+       
 
         if(folders.indexOf(program.dirdest+mod+'/containers') > -1){
             
@@ -136,8 +136,11 @@ program
             
             var p3 = new Promise(function(resolve, reject){
 
-                    
-                fs.writeFileSync(program.dirdest+mod+'/actions/index.js', "import * as c from '../constants';");
+                var actionsTemplate = fs.readFileSync(BASE_PATH+'/templates/actions.template').toString()      
+
+                var output = Mustache.render(actionsTemplate, containerData); 
+
+                fs.writeFileSync(program.dirdest+mod+'/actions/index.js', output);
 
                 if(fs.existsSync(program.dirdest+mod+'/actions/index.js')){
                   resolve(program.dirdest+mod+'/actions/index.js')
@@ -154,8 +157,11 @@ program
 
            var p4 = new Promise(function(resolve, reject){
 
+                var constantsTemplate = fs.readFileSync(BASE_PATH+'/templates/constants.template').toString()  
                     
-                fs.writeFileSync(program.dirdest+mod+'/constants/index.js', "");
+                var output = Mustache.render(constantsTemplate, containerData); 
+                    
+                fs.writeFileSync(program.dirdest+mod+'/constants/index.js', output);
 
                 if(fs.existsSync(program.dirdest+mod+'/constants/index.js')){
                   resolve(program.dirdest+mod+'/constants/index.js')

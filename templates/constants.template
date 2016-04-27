@@ -1,0 +1,5 @@
+export const {{moduleNameUpperCase}}_LOADING = '{{moduleNameUpperCase}}_LOADING';
+
+const INIT_STATE = {
+	isLoading: false
+}

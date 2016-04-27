@@ -1,0 +1,8 @@
+import * as c from '../constants';
+
+export function isLoading(isLoading) {
+    return {
+        type: c.{{moduleNameUpperCase}}_LOADING,
+        isLoading
+    }
+}
