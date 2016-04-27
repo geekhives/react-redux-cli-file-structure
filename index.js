@@ -5,7 +5,7 @@ var Promise = require('promise')
 var Mustache = require('mustache')
 var path = require('path');
 var _str = require('lodash/string');
-
+var colors = require('colors');
 
 var BASE_PATH = __dirname
 
@@ -37,6 +37,7 @@ program
   		var p1 = new Promise(function(resolve, reject){
   			if(fs.existsSync(module)){
   				fs.mkdir(module+'/actions')
+          console.log(colors.green(module+'/actions'+' created'));
   				resolve(module+'/actions')
   			}
   		});
@@ -44,6 +45,7 @@ program
   		var p2 = new Promise(function(resolve, reject){
   			if(fs.existsSync(module)){
   				fs.mkdir(module+'/components')
+          console.log(colors.green(module+'/components'+' created'));
   				resolve(module+'/components')
   			}
   		});
@@ -51,6 +53,7 @@ program
   		var p3 = new Promise(function(resolve, reject){
   			if(fs.existsSync(module)){
   				fs.mkdir(module+'/containers')
+          console.log(colors.green(module+'/containers'+' created'));
   				resolve(module+'/containers')
   			}
   		});
@@ -58,6 +61,7 @@ program
   		var p4 = new Promise(function(resolve, reject){
   			if(fs.existsSync(module)){
   				fs.mkdir(module+'/reducers')
+          console.log(colors.green(module+'/reducers'+' created'));
   				resolve(module+'/reducers')
   			}
   		});
@@ -65,6 +69,7 @@ program
       var p5 = new Promise(function(resolve, reject){
         if(fs.existsSync(module)){
           fs.mkdir(module+'/constants')
+          console.log(colors.green(module+'/constants'+' created'));
           resolve(module+'/constants')
         }
       });
@@ -99,9 +104,12 @@ program
                 fs.writeFileSync(program.dirdest+mod+'/containers/'+containerData.moduleNameOrig+".js", output);
 
                 if(fs.existsSync(program.dirdest+mod+'/containers/'+containerData.moduleNameOrig+".js")){
-                  resolve(program.dirdest+mod+'/containers'+containerData.moduleNameOrig+".js")
+
+                  console.log(colors.green(program.dirdest+mod+'/containers/'+containerData.moduleNameOrig+".js"+' created'));
+                  resolve(program.dirdest+mod+'/containers/'+containerData.moduleNameOrig+".js")
                 }
                 else{
+                  console.log(colors.red('container didnt created'));
                   reject('container didnt created')
                 }
 
@@ -121,9 +129,12 @@ program
                 fs.writeFileSync(program.dirdest+mod+'/reducers/index.js', output);
 
                 if(fs.existsSync(program.dirdest+mod+'/reducers/index.js')){
+
+                  console.log(colors.green(program.dirdest+mod+'/reducers/index.js'+' created'));
                   resolve(program.dirdest+mod+'/reducers/index.js')
                 }
                 else{
+                  console.log(colors.red('reducer didnt created'));
                   reject('reducer didnt created')
                 }
 
@@ -143,9 +154,12 @@ program
                 fs.writeFileSync(program.dirdest+mod+'/actions/index.js', output);
 
                 if(fs.existsSync(program.dirdest+mod+'/actions/index.js')){
+
+                  console.log(colors.green(program.dirdest+mod+'/actions/index.js'+ ' created'));
                   resolve(program.dirdest+mod+'/actions/index.js')
                 }
                 else{
+                  console.log(colors.red('actions didnt created'));
                   reject('actions didnt created')
                 }
 
@@ -160,13 +174,16 @@ program
                 var constantsTemplate = fs.readFileSync(BASE_PATH+'/templates/constants.template').toString()  
                     
                 var output = Mustache.render(constantsTemplate, containerData); 
-                    
+
                 fs.writeFileSync(program.dirdest+mod+'/constants/index.js', output);
 
                 if(fs.existsSync(program.dirdest+mod+'/constants/index.js')){
+
+                  console.log(colors.green(program.dirdest+mod+'/constants/index.js'+ ' created'));
                   resolve(program.dirdest+mod+'/constants/index.js')
                 }
                 else{
+                  console.log(colors.red('constants didnt created'));
                   reject('constants didnt created')
                 }
 
@@ -182,9 +199,12 @@ program
             fs.writeFileSync(program.dirdest+mod+'/routes.js', output);
 
             if(fs.existsSync(program.dirdest+mod+'/routes.js')){
+
+              console.log(colors.green(program.dirdest+mod+'/routes.js'+ ' created'));
               resolve(program.dirdest+mod+'/routes.js')
             }
             else{
+              console.log(colors.red('routes didnt created'));
               reject('routes didnt created')
             }
 
@@ -192,11 +212,15 @@ program
 
   	})
     .then(function(){
-        console.log('module successfully created');
+        console.log(colors.green(_str.kebabCase(moduleName)+' module successfully created'));
     })
   	.catch(function(err){
-  		console.log(err)
+      
+        if(err.code == 'EEXIST'){
+          return console.log(colors.red(`${err.path} already exist`))
+        }
+
+        console.log(colors.red(err))
   	})
- 
   })
   .parse(process.argv);
