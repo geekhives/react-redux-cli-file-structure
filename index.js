@@ -190,25 +190,25 @@ program
             });
          }
 
-        var p5 = new Promise(function(resolve, reject){
+        // var p5 = new Promise(function(resolve, reject){
 
-            var routesTemplate = fs.readFileSync(BASE_PATH+'/templates/routes.template').toString()
+        //     var routesTemplate = fs.readFileSync(BASE_PATH+'/templates/routes.template').toString()
                 
-            var output = Mustache.render(routesTemplate, containerData);             
+        //     var output = Mustache.render(routesTemplate, containerData);             
 
-            fs.writeFileSync(program.dirdest+'/'+mod+'/routes.js', output);
+        //     fs.writeFileSync(program.dirdest+'/'+mod+'/routes.js', output);
 
-            if(fs.existsSync(program.dirdest+'/'+mod+'/routes.js')){
+        //     if(fs.existsSync(program.dirdest+'/'+mod+'/routes.js')){
 
-              console.log(colors.green(program.dirdest+mod+'/routes.js'+ ' created'));
-              resolve(program.dirdest+'/'+mod+'/routes.js')
-            }
-            else{
-              console.log(colors.red('routes didnt created'));
-              reject('routes didnt created')
-            }
+        //       console.log(colors.green(program.dirdest+mod+'/routes.js'+ ' created'));
+        //       resolve(program.dirdest+'/'+mod+'/routes.js')
+        //     }
+        //     else{
+        //       console.log(colors.red('routes didnt created'));
+        //       reject('routes didnt created')
+        //     }
 
-        });
+        // });
 
   	})
     .then(function(){
